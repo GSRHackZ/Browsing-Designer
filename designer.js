@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Browsing Designer
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  Design and customize any website you visit!!
 // @author       GSRHackZ
 // @match         *://*/*
@@ -28,6 +28,13 @@ body.append(box);
 box.className="box-customizer";
 box=document.getElementsByClassName("box-customizer")[0];
 $(box).draggable();
+
+box.addEventListener("contextmenu",function(evt){
+    if(box_state=="btn"){
+        evt.preventDefault();
+        this.remove();
+    }
+})
 
 box.addEventListener("click",function(){
     if(box_state=="btn"){
