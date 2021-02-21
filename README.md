@@ -7,6 +7,7 @@ Design and customize any website you visit!!
 <li>Click the <b>Customize 🎨</b> button at the bottom right.</li><br>
 <li>Set desired <b>styling</b> for the website you are currently on.</li><br>
 <li>Click <b>Set Styling!</b> to save the styling to that website.</li><br>
+<li>If it's in the way of something, <b>right</b> click it and it will go away!</li><br/>
 <li>Enjoy!</li><br>
 </ol>
 
