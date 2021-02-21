@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Browsing Designer
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Design and customize any website you visit!!
 // @author       GSRHackZ
 // @match         *://*/*
@@ -109,9 +109,5 @@ if(localStorage.getItem("txtFont")!==null){
 
 
 function randomHSL(){
-    return "hsla(" + ~~(360 * Math.random()) + "," +
-        "70%,"+
-        "80%,1)"
+    return '#'+Math.floor(Math.random()*16777215).toString(16);
 }
-
-
