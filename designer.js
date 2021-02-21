@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Browsing Designer
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  Design and customize any website you visit!!
 // @author       GSRHackZ
 // @match         *://*/*
@@ -19,8 +19,8 @@
 let $ = window.jQuery;
 const body=document.body;
 let box=document.createElement("div"),inps,colorSwitch=false,currentBg,rainbowTxt="Rainbow-Mode!";
-const btn_style=`position:fixed;bottom:10px;right:10px;width:110px;text-align:center;border:1px solid lightgrey;border-radius:5px;z-index:2000;background:white;color:black;font-size:15px;padding:5px;cursor:pointer;transition:.6s;font-family: “Helvetica Neue”,Helvetica,Arial,sans-serif;word-break:none;word-wrap:none;white-space:nowrap`;
-const box_style=`color:black;position:fixed;top:10px;right:10px;width:200px;height:fit-content;border:1px solid lightgrey;background:white;transition:.6s;border-radius:5px;font-family: “Helvetica Neue”,Helvetica,Arial,sans-serif;word-break:none;word-wrap:none;text-align:center;padding:5px;z-index:2000;`;
+const btn_style=`position:fixed;bottom:10px;right:10px;width:fit-content;height:fit-content;text-align:center;border:1px solid lightgrey;border-radius:5px;z-index:2000000;background:white;color:black;font-size:15px;padding:5px;cursor:pointer;transition:.6s;font-family: “Helvetica Neue”,Helvetica,Arial,sans-serif;`;
+const box_style=`color:black;position:fixed;top:10px;right:10px;width:200px;height:fit-content;border:1px solid lightgrey;background:white;transition:.6s;border-radius:5px;font-family: “Helvetica Neue”,Helvetica,Arial,sans-serif;word-break:none;word-wrap:none;text-align:center;padding:5px;z-index:2000000;`;
 let box_state="btn";
 box.innerText="Customize 🎨";
 box.style=btn_style;
@@ -111,3 +111,5 @@ if(localStorage.getItem("txtFont")!==null){
 function randomHSL(){
     return '#'+Math.floor(Math.random()*16777215).toString(16);
 }
+
+
