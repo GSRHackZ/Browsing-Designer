@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Browsing Designer
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.4
 // @description  Design and customize any website you visit!!
 // @author       GSRHackZ
 // @match         *://*/*
@@ -17,6 +17,7 @@
 // @noframes
 // ==/UserScript==
 let $ = window.jQuery;
+var j = $.noConflict();
 const body=document.body;
 let box=document.createElement("div"),inps,colorSwitch=false,currentBg,rainbowTxt="Rainbow-Mode!";
 const btn_style=`position:fixed;bottom:10px;right:10px;width:fit-content;height:fit-content;text-align:center;border:1px solid lightgrey;border-radius:5px;z-index:2000000;background:white;color:black;font-size:15px;padding:5px;cursor:pointer;transition:.6s;font-family: “Helvetica Neue”,Helvetica,Arial,sans-serif;`;
@@ -27,7 +28,7 @@ box.style=btn_style;
 body.append(box);
 box.className="box-customizer";
 box=document.getElementsByClassName("box-customizer")[0];
-$(box).draggable();
+j(box).draggable();
 
 box.addEventListener("contextmenu",function(evt){
     if(box_state=="btn"){
