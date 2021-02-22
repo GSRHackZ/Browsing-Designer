@@ -24,4 +24,13 @@ Design and customize any website you visit!!
 <ul>
 <li>Youtube:  <a style="color:red;" target="_Blank" href="https://www.youtube.com/channel/UCinBnZ2BKAbCKA1w9lmFd0w">Subscribe</a></li>
 <li>Instagram:  <a style="color:#dc2ef0;" target="_Blank" href="https://www.instagram.com/nyc.geahad.codes/">Follow</a></li>
-</ul>
+</ul><br>
+
+<h3>Customizer button</h3>
+
+![browsing designer(2)](https://user-images.githubusercontent.com/79179978/108645692-b0c16680-7481-11eb-813a-8f8d40367cd9.PNG)
+
+<h3>Customizer panel 🎨</h3>
+
+![browsing designer](https://user-images.githubusercontent.com/79179978/108645599-604a0900-7481-11eb-942b-d222aa964b1d.PNG)
+
