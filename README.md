@@ -17,7 +17,7 @@ Design and customize any website you visit!!
 <li>Set custom <b>txt-font</b> for any website you visit. ✍</li><br>
 <li>Set custom <b>background-color</b> for any website you visit. 🖌</li><br>
 <li><b>Rainbow-Mode</b> which keeps changing the background to random colors. 🌈</li><br>
-<li><b>random-Design which gives the page a random design. 🤞</b></li><br>
+  <li><b>random-Design</b> which gives the page a random design. 🤞</li><br>
 </ul>
 
 <h3>Please consider:</h3>
