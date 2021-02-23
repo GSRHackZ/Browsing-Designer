@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Browsing Designer
 // @namespace    http://tampermonkey.net/
-// @version      1.4
+// @version      1.5
 // @description  Design and customize any website you visit!!
 // @author       GSRHackZ
 // @match         *://*/*
@@ -19,35 +19,51 @@
 let $ = window.jQuery;
 var j = $.noConflict();
 const body=document.body;
-let box=document.createElement("div"),inps,colorSwitch=false,currentBg,rainbowTxt="Rainbow-Mode!";
-const btn_style=`position:fixed;bottom:10px;right:10px;width:fit-content;height:fit-content;text-align:center;border:1px solid lightgrey;border-radius:5px;z-index:2000000;background:white;color:black;font-size:15px;padding:5px;cursor:pointer;transition:.6s;font-family: “Helvetica Neue”,Helvetica,Arial,sans-serif;`;
-const box_style=`color:black;position:fixed;top:10px;right:10px;width:200px;height:fit-content;border:1px solid lightgrey;background:white;transition:.6s;border-radius:5px;font-family: “Helvetica Neue”,Helvetica,Arial,sans-serif;word-break:none;word-wrap:none;text-align:center;padding:5px;z-index:2000000;`;
-let box_state="btn";
+let btn_style=`position:fixed;right:10px;bottom:10px;transition:.2s;font-size:15px;box-sizing:border-box;padding:5px;color:black;background:white;border:1px solid lightgrey;border-radius:5px;cursor:pointer;height:fit-content;width:fit-content;z-index:20000000000;font-family: “Helvetica Neue”,Helvetica,Arial,sans-serif;`;
+let box_style=`text-align:center;position:fixed;right:10px;top:10px;transition:.6s;border-box;padding:5px;color:black;background:white;border:1px solid lightgrey;border-radius:5px;width:200px;cursor:default;height:fit-content;z-index:200000000000;font-family: “Helvetica Neue”,Helvetica,Arial,sans-serif;`;
+let box=document.createElement("div");
+let inps,rainbowTxt="Rainbow-Mode! 🌈",colorSwitch=false,currentBg;
 box.innerText="Customize 🎨";
 box.style=btn_style;
-body.append(box);
-box.className="box-customizer";
-box=document.getElementsByClassName("box-customizer")[0];
+let box_state="btn";
 j(box).draggable();
-
-box.addEventListener("contextmenu",function(evt){
-    if(box_state=="btn"){
-        evt.preventDefault();
-        this.remove();
-    }
-})
+body.append(box);
 
 box.addEventListener("click",function(){
     if(box_state=="btn"){
+        this.style=box_style;
+        this.innerText="";
         box_state="box";
-        box.innerText="";
-        box.style=box_style;
-        box.innerHTML=`<h1 style="font-size:20px;margin:10px;">Customize 🎨</h1><span style="margin-top:20px;width:100%;height:100%;"><br><input customize="txt-color" class="inp-customizer" placeholder="Custom-text-color..." /><br><input customize="txt-font" class="inp-customizer" placeholder="Custom-text-font..." /><br><input customize="bg-color" class="inp-customizer" placeholder="Custom-background-color..." /><br><button id="customize" style="font-size:15px;color:white;border:1px solid lightgrey;width:90%;outline:none;padding:5px;border-radius:5px;margin:10px;cursor:pointer;background:aqua;margin-bottom:25px;">Set Styling!</button><button id="rainbow" style="font-size:15px;color:white;border:none;width:90%;outline:none;padding:5px;border-radius:5px;margin:5px;cursor:pointer;background:springgreen">${rainbowTxt}</button><button id="reset" style="font-size:15px;color:white;border:1px solid lightgrey;width:90%;outline:none;padding:5px;border-radius:5px;margin:5px;cursor:pointer;background:red">Reset</button></span><p id="close-customizer" style="color:red;cursor:pointer;margin-top:40px;">Close</p>`;
+        this.innerHTML=`
+        <h1 style="font-size:18px;margin:10px;margin-bottom:30px;">Customize 🎨</h1>
+        <div style="text-align:left;margin-top:20px;width:100%;height:fit-content;margin-bottom:20px;">
+           <input name="txtFont" placeholder="Enter font here..." class="inp-customizer" type="text"/><br>
+           <input title="Text-Color" name="txtColor" value=#09FB7E class="inp-customizer picker" type="color"/><br>
+           <input title="Background-Color" name="bgColor" value=#eb8aff class="inp-customizer picker" type="color"/><br>
+        </div>
+        <div style="width:100%;height:fit-content;margin-bottom:40px;">
+           <button id="rainbow" style="font-size:15px;color:white;border:1px solid lightgrey;width:90%;outline:none;padding:5px;border-radius:5px;margin:5px;cursor:pointer;background:#be7afc">${rainbowTxt}</button><br>
+           <button id="random" style="font-size:15px;color:white;border:1px solid lightgrey;width:90%;outline:none;padding:5px;border-radius:5px;margin:5px;cursor:pointer;background:#1b8df7">Random - Design 🤞</button><br>
+        </div>
+        <center>
+        <div style="width:93%;height:fit-content;margin-bottom:30px;border-radius:5px;">
+            <button id="reset" style="font-size:15px;color:white;border:1px solid lightgrey;width:90%;outline:none;padding:5px;border-radius:5px;margin:5px;cursor:pointer;background:red">Reset</button>
+            <p id="close-customizer" style="color:red;cursor:pointer;margin-top:20px;">Close</p>
+        </div>
+        </center>
+`;
+        inps=document.getElementsByClassName("inp-customizer");
+        let colorPickers=document.getElementsByClassName("picker");
+        let rainbow=document.getElementById("rainbow");
         let closeBtn=document.getElementById("close-customizer");
         let reset=document.getElementById("reset");
-        let rainbow=document.getElementById("rainbow");
-        inps=document.getElementsByClassName("inp-customizer");
-        let customize=document.getElementById("customize");
+        let randomBtn=document.getElementById("random");
+        randomBtn.addEventListener("click",function(){
+            body.style=`background:${randomThing("color")};font-family:${randomThing("font")};color:${randomThing("color")};transition:.6s;`;
+            localStorage.setItem("bg",body.style.background)
+            localStorage.setItem("txtColor",body.style.color)
+            localStorage.setItem("txtFont",body.style.fontFamily)
+        })
         reset.addEventListener("click",function(){
             let check=confirm("Are you sure you want to reset?");
             if(check){
@@ -57,40 +73,23 @@ box.addEventListener("click",function(){
                 location.reload();
             }
         })
-        customize.addEventListener("click",function(){
-            if(inps[2].value.trim().length>0){
-                body.style.background=inps[2].value;
-                localStorage.setItem("bg",inps[2].value)
-            }
-            if(inps[0].value.trim().length>0){
-                body.style.color=inps[0].value;
-                localStorage.setItem("txtColor",inps[0].value)
-            }
-            if(inps[1].value.trim().length>0){
-                body.style.fontFamily=inps[1].value;
-                localStorage.setItem("txtFont",inps[1].value)
-            }
-        })
         rainbow.addEventListener("click",function(){
             if(!colorSwitch){
                 currentBg=body.style.background;
-                this.innerText="Turn-Off!";
-                rainbowTxt="Turn-Off!"
                 colorSwitch=setInterval(function(){
-                    body.style=`background:${randomHSL()};transition:.5s;`;
-                },500);
+                    body.style=`background:${randomThing("color")};transition:.6s;`
+                },500)
+                this.innerText="Turn Off!";
+                rainbowTxt=this.innerText;
             }
             else{
                 clearInterval(colorSwitch);
-                this.innerText="Rainbow-Mode!";
-                rainbowTxt="Rainbow-Mode!";
-                body.style.background=currentBg;
                 colorSwitch=false;
+                this.innerText="Rainbow-Mode! 🌈";
+                rainbowTxt=this.innerText;
+                body.style.background=currentBg;
             }
         })
-        for(let i=0;i<inps.length;i++){
-            inps[i].style=`font-size:13px;background:white;color:black;border:1px solid lightgrey;width:90%;outline:none;padding:5px;padding-left:6px;border-radius:5px;margin:5px;`;
-        }
         closeBtn.addEventListener("click",function(){
             box.innerHTML="";
             box.innerText="Customize 🎨";
@@ -99,11 +98,46 @@ box.addEventListener("click",function(){
                 box_state="btn";
             },500)
         })
+        for(let i=0;i<inps.length;i++){
+            inps[i].style=`cursor:pointer;height:25px;font-size:13px;background:white;color:black;border:1px solid lightgrey;width:90%;outline:none;padding:5px;padding-left:7px;border-radius:5px;margin:5px;margin-bottom:10px;font-family: “Helvetica Neue”,Helvetica,Arial,sans-serif;`;
+            if(inps[i].name=="txtFont"){
+                inps[i].style.cursor="text";
+                inps[i].addEventListener("keyup",function(evt){
+                    if(evt.keyCode==13){
+                        body.style.fontFamily=this.value;
+                        localStorage.setItem("txtFont",body.style.fontFamily)
+                    }
+                })
+            }
+        }
+        for(let i=0;i<colorPickers.length;i++){
+            colorPickers[i].addEventListener("input", function(){
+                if(this.name=="txtColor"){
+                    body.style.color=this.value;
+                    localStorage.setItem("txtColor",body.style.color)
+
+                }
+                else if(this.name=="bgColor"){
+                    body.style.background=this.value;
+                    localStorage.setItem("bg",body.style.background)
+                }
+            })
+        }
     }
 })
 
-
-
+box.addEventListener("contextmenu",function(evt){
+    if(box_state=="btn"){
+        evt.preventDefault();
+        this.style.cursor="not-allowed";
+        del(this);
+        function del(elem){
+            setTimeout(function(){
+                elem.remove();
+            },300)
+        }
+    }
+})
 
 if(localStorage.getItem("bg")!==null){
     body.style.background=localStorage.getItem("bg");
@@ -115,9 +149,12 @@ if(localStorage.getItem("txtFont")!==null){
     body.style.fontFamily=localStorage.getItem("txtFont");
 }
 
-
-function randomHSL(){
-    return '#'+Math.floor(Math.random()*16777215).toString(16);
+function randomThing(type){
+    if(type=="color"){
+        return '#'+Math.floor(Math.random()*16777215).toString(16);
+    }
+    else if(type=="font"){
+        let fonts=["Arial, sans-serif","Helvetica, sans-serif","comic sans ms","Verdana, sans-serif","Trebuchet MS, sans-serif","Gill Sans, sans-serif","Noto Sans, sans-serif","Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif","Optima, sans-serif","Arial Narrow, sans-serif","Apple Chancery, cursive","Luminari, fantasy","Marker Felt, fantasy"];
+        return fonts[Math.floor(Math.random() * fonts.length)];
+    }
 }
-
-
